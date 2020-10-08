@@ -1,0 +1,19 @@
+dist: xenial
+language: node_js
+node_js: "12"
+cache: npm
+
+install:
+  - npm install -g yarn
+  - yarn
+
+script:
+  - yarn lint
+  - yarn build
+  - yarn test
+
+branches:
+  only:
+  - master
+
+
