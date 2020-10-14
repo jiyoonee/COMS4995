@@ -1,5 +1,6 @@
 # VisualizeSpotify
 ![GitHub](https://img.shields.io/github/license/jiyoonee/COMS4995?style=for-the-badge)
+![Travis (.org)](https://img.shields.io/travis/jiyoonee/VisualizeSpotify?style=for-the-badge)
 
 ### Project Proposal 
 
