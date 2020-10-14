@@ -13,5 +13,5 @@
     }
   },
   "moduleDirectories": ["node_modules", "src"],
-  "testPathIgnorePatterns": ["<rootDir>/src/serviceWorker.js"]
+  "coveragePathIgnorePatterns": ["<rootDir>/src/serviceWorker.js"]
 }
