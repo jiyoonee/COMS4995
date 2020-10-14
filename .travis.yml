@@ -3,6 +3,8 @@ language: node_js
 node_js: "12"
 cache: npm
 
+env:
+  - CODECOV_TOKEN="73defb26-5b47-42ca-9b9c-62a9c2c47fda"
 install:
   - npm install -g yarn
   - yarn
@@ -10,7 +12,7 @@ install:
 script:
   - yarn lint
   - yarn build
-  - yarn test
+  - yarn test -- --coverage --watchAll=false
 
 branches:
   only:
