@@ -3,6 +3,7 @@ language: node_js
 node_js: "12"
 cache: npm
 
+before_install: cd client
 env:
   - CODECOV_TOKEN="73defb26-5b47-42ca-9b9c-62a9c2c47fda"
 install:
