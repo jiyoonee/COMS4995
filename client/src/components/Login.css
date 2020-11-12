@@ -1,0 +1,47 @@
+.Content {
+  background-color: #1d1d20;
+  height: 100vh;
+}
+
+.Login {
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Intro-Text {
+  padding-top: 5em;
+  color: white;
+  font-family: Avenir;
+  font-size: 50px;
+  text-align: center;
+  font-weight: 600;
+  cursor: default;
+}
+
+.Login-Button {
+  text-align: center;
+  position: relative;
+  padding-top: 70px;
+}
+
+a {
+  text-decoration: none;
+}
+
+#auth-button {
+  padding: 15px 40px;
+  background: #1DB954;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 40px;
+  font-size: 20px;
+  font-family: Avenir;
+  outline: none;
+}
+
+#auth-button:hover {
+  background-color: rgb(35, 161, 79);
+}
