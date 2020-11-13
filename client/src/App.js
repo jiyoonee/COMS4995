@@ -2,10 +2,6 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Login, Playing } from './components'
 import './App.css'
-
-/**
- * Instance of Spotify Web API that holds user authentication tokens.
- */
 import Spotify from 'spotify-web-api-js'
 
 /**

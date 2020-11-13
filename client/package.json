@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test a",
+    "test": "./node_modules/.bin/codecov --token='73defb26-5b47-42ca-9b9c-62a9c2c47fda' && react-scripts test a",
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",

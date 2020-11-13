@@ -11,7 +11,7 @@ install:
 script:
   - yarn lint
   - yarn build
-  - yarn test -- --coverage --watchAll=false
+  - yarn test
   - yarn doc
 
 branches:
