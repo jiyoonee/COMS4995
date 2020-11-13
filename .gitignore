@@ -12,11 +12,6 @@ client/coverage
 # production
 client/build
 
-# documentation
-docs/scripts
-docs/styles
-docs/fonts
-
 # misc
 .DS_Store
 .env.local
