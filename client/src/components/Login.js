@@ -2,22 +2,26 @@ import React, { useEffect } from 'react'
 import './Login.css'
 
 function Login (props) {
+  const getHashParams = () => {
+    var hashParams = {};
+    var r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    while (true) {
+      const e = r.exec(q);
+      if(!e) {
+        break
+      }
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+    return hashParams;
+  }
+  const params = getHashParams()
   useEffect(() => {
     if (params.access_token) {
       props.spotifyWebApi.setAccessToken(params.access_token)
       props.setAuth(true)
     }
-  }, [])
-  const getHashParams = () => {
-    var hashParams = {};
-    var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
-    while ( e = r.exec(q)) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    return hashParams;
-  }
-  const params = getHashParams()
+  }, [params.access_token, props])
   return (
     <div className="Content">
       <div className="Intro-Text">

@@ -10,7 +10,11 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "rewire": "^5.0.0",
     "spotify-web-api-js": "^0.22.1"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": ["<rootDir>/src/serviceWorker.js"]
   },
   "scripts": {
     "start": "react-scripts start",
