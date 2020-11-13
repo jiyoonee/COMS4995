@@ -2,6 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/jiyoonee/COMS4995?style=for-the-badge)
 ![Travis (.org)](https://img.shields.io/travis/jiyoonee/VisualizeSpotify?style=for-the-badge)
 ![Codecov](https://img.shields.io/codecov/c/gh/jiyoonee/VisualizeSpotify?style=for-the-badge)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/jiyoonee/VisualizeSpotify?style=for-the-badge)
 
 Visualize-Spotify is a React web application that uses the Spotify Web API to visualize music preferences. It also provides a tinder-esque functionality that allows you to swipe through recommended songs and see in real-time its stats as well as how it affects your global music preferences via track analytics.
 
@@ -38,15 +39,18 @@ To be determined
 Clone this repository and run `npm install` to install all the necessary dependencies.
 Before starting the client interface, start the authentication server by running the following:
 ```
-cd auth-server/authorization_code
-node app.js
+$ cd auth-server/authorization_code
+$ node app.js
 ```
+The server will be running on http://localhost:8888 <br/>
+
 Then navigate to the client directory and launch the application in developer mode.
 ```
-cd client
-npm install
-npm start
+$ cd client
+$ npm install
+$ npm start
 ```
+The client will be running on http://localhost:3000
 
 ## Code Structure
 Visualize-Spotify's codebase is largely divided into two directories named `auth-server` and `client` for the authentication server and client interface, respectively. The original code for `auth-server` can be found in [this open-source repository](https://github.com/spotify/web-api-auth-examples). Modifications were made to `authorization_code/app.js` as follows and are subject to more modifications based on necessary permissions:
