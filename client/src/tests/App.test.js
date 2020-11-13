@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { render, screen } from '@testing-library/react'
 import App from '../App'
 import Playing from '../components/Playing'
+import 'jest-canvas-mock'
 
 test('app renders without crashing', () => {
   const div = document.createElement('div');

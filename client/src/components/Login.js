@@ -3,7 +3,18 @@ import './Login.css'
 import Particles from 'react-particles-js';
 import particlesConfig from '../config/particlesConfig';
 
+/**
+ * Prompts the user for login and permissions and sets access token.
+ * @param {Spotify} spotifyWebApi - Instance of Spotify Web API that holds user authentication tokens.
+ * @param {function} setAuth - Function that updates the app on whether the user has been successfully authenticated.
+ */
 function Login (props) {
+
+  /**
+   * Obtains parameters from the hash of the URL
+   * @return {Object} hashParams - An Object holding the access token of the user.
+   * @method getHashParams
+   */
   const getHashParams = () => {
     var hashParams = {};
     var r = /([^&;=]+)=?([^&;]*)/g,
@@ -17,6 +28,7 @@ function Login (props) {
     }
     return hashParams;
   }
+
   const params = getHashParams()
   useEffect(() => {
     if (params.access_token) {

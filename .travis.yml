@@ -12,6 +12,7 @@ script:
   - yarn lint
   - yarn build
   - yarn test -- --coverage --watchAll=false
+  - yarn doc
 
 branches:
   only:

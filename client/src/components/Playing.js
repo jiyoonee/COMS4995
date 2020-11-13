@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
 import './Playing.css'
 
+/**
+ * Displays information on the current song being played.
+ * @param {Spotify} spotifyWebApi - Instance of Spotify Web API that holds user authentication tokens.
+ */
 function Playing (props) {
   const [nowPlaying, setNowPlaying] = useState({name: 'Not Checked', img: ''})
+
+  /**
+   * Fetches information of the current playing song from Web API and updates the state.
+   * @method getNowPlaying
+   */
   const getNowPlaying = () => {
     props.spotifyWebApi.getMyCurrentPlaybackState()
     .then((res) => {
       setNowPlaying({name: res.item.name, img: res.item.album.images[0].url})
     })
   }
+
   return (
     <div className="Content">
       <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '12em'}}>
