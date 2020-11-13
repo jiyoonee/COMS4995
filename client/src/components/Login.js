@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import './Login.css'
+import Particles from 'react-particles-js';
+import particlesConfig from '../config/particlesConfig';
 
 function Login (props) {
   const getHashParams = () => {
@@ -24,6 +26,9 @@ function Login (props) {
   }, [params.access_token, props])
   return (
     <div className="Content">
+      <div style={{ position: 'absolute'}}>
+        <Particles height="100vh" width="100vw" params={particlesConfig} />
+      </div>
       <div className="Intro-Text">
         Welcome to Visualize-Spotify!
         <div style={{ fontSize: "20px", fontWeight: "300" }}>Login to start</div>
