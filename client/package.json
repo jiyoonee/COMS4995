@@ -10,11 +10,13 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "rewire": "^5.0.0",
     "spotify-web-api-js": "^0.22.1"
   },
   "jest": {
-    "coveragePathIgnorePatterns": ["<rootDir>/src/serviceWorker.js"]
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/serviceWorker.js",
+      "<rootDir>/src/index.js"
+    ]
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "codecov": "^3.8.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "6.8.0",
