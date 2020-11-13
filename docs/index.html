@@ -47,19 +47,78 @@
 <p><img src="https://img.shields.io/github/license/jiyoonee/COMS4995?style=for-the-badge" alt="GitHub">
 <img src="https://img.shields.io/travis/jiyoonee/VisualizeSpotify?style=for-the-badge" alt="Travis (.org)">
 <img src="https://img.shields.io/codecov/c/gh/jiyoonee/VisualizeSpotify?style=for-the-badge" alt="Codecov"></p>
-<h3>Project Proposal</h3>
+<p>Visualize-Spotify is a React web application that uses the Spotify Web API to visualize music preferences. It also provides a tinder-esque functionality that allows you to swipe through recommended songs and see in real-time its stats as well as how it affects your global music preferences via track analytics.</p>
+<h2>Key features</h2>
 <ul>
-<li>a web app using spotify's Web API that visualizes the user's musical preferences by providing analysis into rhythm/beats + genre of their liked songs</li>
-<li>maybe also implement multiple filters based on beats/rhythm, genre, artist as well as a combination of these filters for song discovery</li>
-<li>a tinder-esqe app for music; based on your current liked songs playlists, it queues up a list of related songs that you can swipe right or left on
+<li>Users will be able to login to the web application by authenticating their Spotify account.</li>
+<li>Users will be able to view analytics providing insight into the type of music they enjoy listening to based on their liked songs playlist.</li>
+<li>Users will be able to swipe through recommended songs and view the stats of that specific track.</li>
+<li>Users will be able to filter and discover new songs based on the range of stats they provide.</li>
+</ul>
+<h2>Where to find the project</h2>
+<p>Project is still in development.</p>
+<h2>Licensing</h2>
+<p>Visualize-Spotify is licensed under the Apache-2.0 License as of 2020.</p>
+<hr>
+<h1>User Documentation</h1>
+<h2>Getting Started</h2>
+<h2>Features and functionality</h2>
+<h2>Tutorials/Code Examples</h2>
+<h2>Existing Extensions and Integrations</h2>
+<p>None</p>
+<h2>FAQ</h2>
+<p>To be determined</p>
+<h2>Release Notes and Version Info</h2>
 <ul>
-<li>swiping right would add it to your liked songs and update your preferences</li>
-<li>swiping left means you are not interested; this may or may not also affect preferences</li>
+<li>v0.1.0
+<ul>
+<li>v0.1.0 introduces a landing screen with Spotify authentication. Upon authentication, the user is redirected to a page where they can view the information of the song that they are currently playing.</li>
 </ul>
 </li>
-<li>a 'listening room' where multiple people can add songs; people may vote for specific songs, and the most voted song is played. Would be cool if there is also functionality to add the song to your own liked songs playlist.</li>
 </ul>
-<p>Generally, looking into any projects that have unique applications of the spotify API.</p></article>
+<hr>
+<h1>Developer Documentation</h1>
+<h2>Code Structure</h2>
+<p>Visualize-Spotify's codebase is largely divided into two directories named <code>auth-server</code> and <code>client</code> for the authentication server and client interface, respectively. The original code for <code>auth-server</code> can be found in <a href="https://github.com/spotify/web-api-auth-examples">this open-source repository</a>. Modifications were made to <code>authorization_code/app.js</code> as follows and are subject to more modifications based on necessary permissions:</p>
+<ul>
+<li>Added client_id, client_secret, and redirect_uri for the app that was created at <a href="https://developer.spotify.com/">Spotify for Developers</a>.</li>
+<li>Added permissions to the scope variable.</li>
+<li>Modified the redirect url following authentication to be the client interface.</li>
+</ul>
+<p>Page components should be in <code>src/components</code> directory along with their CSS stylesheets.</p>
+<h2>CI Documentation</h2>
+<p>Visualize-Spotify uses Travis-CI test builds. The configuration file can be found in the <code>.travis.yml</code> file. Before install, it navigates to the client folder and runs the following scripts:</p>
+<ul>
+<li>yarn lint
+<ul>
+<li>This runs ESLint on the <code>client/src</code> directory.</li>
+</ul>
+</li>
+<li>yarn build
+<ul>
+<li>This creates a production build to ensure that it builds without error.</li>
+</ul>
+</li>
+<li>yarn test
+<ul>
+<li>Testing creates a code coverage report using Codecov in conjunction with running tests found in the <code>client/src/tests</code> directory. To update coverage reports in real-time, coverage tests are conducted by passing in a Codecov token as such: <code>./node_modules/.bin/codecov --token='73defb26-5b47-42ca-9b9c-62a9c2c47fda</code>. This can be found in the <code>package.json</code> file. Moreover, it ignores <code>src/ServiceWorker.js</code> and <code>src/index.js</code> because they are either not used or serve trivial purpose. The configuration file for this can be found in <code>client/jest.config.json</code>.</li>
+</ul>
+</li>
+<li>yarn doc
+<ul>
+<li>This updates the documentation using JSDoc3 by following the configuration file <code>jsdoc.config.json</code> found in the root directory. As can be found in <code>package.json</code>, the home page uses <code>README.md</code> found in the root directory. The documentation is hosted using GitHub Pages and can be found <a href="https://jiyoonee.github.io/VisualizeSpotify/">here</a>.</li>
+</ul>
+</li>
+</ul>
+<h2>Extensions and Integration authors</h2>
+<p>There are currently no extensions or integration authors.</p>
+<h2>Release Notes and Roadmap</h2>
+<ul>
+<li>Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up.</li>
+<li>Next releases will focus on fetching track analytics and implementing the recommendation system.</li>
+</ul>
+<h2>API Documentation</h2>
+<p>Visualize-Spotify uses the Spotify Web API, whose detailed documentation can be found <a href="https://developer.spotify.com/documentation/web-api/">here</a>. API Documentation for this application can be found in its <a href="https://jiyoonee.github.io/VisualizeSpotify/">GitHub Pages</a>.</p></article>
     </section>
 
 
@@ -76,7 +135,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Nov 14 2020 00:37:37 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Nov 14 2020 04:34:40 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

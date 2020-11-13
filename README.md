@@ -34,6 +34,20 @@ To be determined
 ---
 
 # Developer Documentation
+## Getting Started
+Clone this repository and run `npm install` to install all the necessary dependencies.
+Before starting the client interface, start the authentication server by running the following:
+```
+cd auth-server/authorization_code
+node app.js
+```
+Then navigate to the client directory and launch the application in developer mode.
+```
+cd client
+npm install
+npm start
+```
+
 ## Code Structure
 Visualize-Spotify's codebase is largely divided into two directories named `auth-server` and `client` for the authentication server and client interface, respectively. The original code for `auth-server` can be found in [this open-source repository](https://github.com/spotify/web-api-auth-examples). Modifications were made to `authorization_code/app.js` as follows and are subject to more modifications based on necessary permissions:
   - Added client_id, client_secret, and redirect_uri for the app that was created at [Spotify for Developers](https://developer.spotify.com/).
@@ -44,13 +58,14 @@ Page components should be in `src/components` directory along with their CSS sty
 
 ## CI Documentation
 Visualize-Spotify uses Travis-CI test builds. The configuration file can be found in the `.travis.yml` file. Before install, it navigates to the client folder and runs the following scripts:
-  - yarn lint
+  - <strong>yarn lint</strong>
     - This runs ESLint on the `client/src` directory.
-  - yarn build
+  - <strong>yarn build</strong>
     - This creates a production build to ensure that it builds without error.
-  - yarn test
-    - Testing creates a code coverage report using Codecov in conjunction with running tests found in the `client/src/tests` directory. To update coverage reports in real-time, coverage tests are conducted by passing in a Codecov token as such: `./node_modules/.bin/codecov --token='73defb26-5b47-42ca-9b9c-62a9c2c47fda`. This can be found in the `package.json` file. Moreover, it ignores `src/ServiceWorker.js` and `src/index.js` because they are either not used or serve trivial purpose. The configuration file for this can be found in `client/jest.config.json`.
-  - yarn doc
+  - <strong>yarn test</strong>
+    - Testing creates a code coverage report using Codecov in conjunction with running tests found in the `client/src/tests` directory. To update coverage reports in real-time, coverage tests are conducted by passing in a Codecov token as such: `./node_modules/.bin/codecov --token='73defb26-5b47-42ca-9b9c-62a9c2c47fda`. This can be found in the `package.json` file. 
+    - Moreover, it ignores `src/ServiceWorker.js` and `src/index.js` because they are either not used or serve trivial purpose. The configuration file for this can be found in `client/jest.config.json`.
+  - <strong>yarn doc</strong>
     - This updates the documentation using JSDoc3 by following the configuration file `jsdoc.config.json` found in the root directory. As can be found in `package.json`, the home page uses `README.md` found in the root directory. The documentation is hosted using GitHub Pages and can be found [here](https://jiyoonee.github.io/VisualizeSpotify/).
 
 ## Extensions and Integration authors
