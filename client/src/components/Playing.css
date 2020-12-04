@@ -1,4 +1,35 @@
-.Content {
+.Container {
     background-color: #1d1d20;
     height: 100vh;
+    display: flex;
+}
+
+#c1, #c2, #c3{
+    width: 33.3%;
+    padding-top: 80px;
+}
+
+.buttons {
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    height: 80px;
+    width: 100vw;
+}
+
+#userInfo {
+    float: right;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    color: white; 
+    font-family: Avenir;
+    font-weight: 800px;
+    display: flex; 
+    align-items: center; 
 }
