@@ -9,6 +9,10 @@
     padding-top: 80px;
 }
 
+#c3 {
+    margin-right: 2em;
+}
+
 .buttons {
     padding: 60px;
     display: flex;
@@ -50,7 +54,7 @@
 
 .horizontal-slider {
     margin: auto;
-    width: 80%;
+    width: 90%;
     height: 25px;
 }
 

@@ -5,6 +5,43 @@ import { useDataLayerValue } from '../DataLayer'
 import { yes, no } from '../assets'
 import ReactSlider from 'react-slider'
 import Visual from './Visual'
+import styled from 'styled-components'
+
+
+const StyledTrackA = styled.div`
+background: ${props => props.index === 1 ? '#f9b127' : '#ddd' };
+border-radius: 20px;
+top: calc(50% - 7px);
+height: 2px;
+` 
+
+const StyledTrackB = styled.div`
+background: ${props => props.index === 1 ? '#8169cf' : '#ddd' };
+border-radius: 20px;
+top: calc(50% - 7px);
+height: 2px;
+`
+
+const StyledTrackC = styled.div`
+background: ${props => props.index === 1 ? '#e82c4f' : '#ddd' };
+border-radius: 20px;
+top: calc(50% - 7px);
+height: 2px;
+`
+
+const StyledTrackD = styled.div`
+background: ${props => props.index === 1 ? '#66bb6a' : '#ddd' };
+border-radius: 20px;
+top: calc(50% - 7px);
+height: 2px;
+`
+
+const StyledTrackE = styled.div`
+background: ${props => props.index === 1 ? '#2784c7' : '#ddd' };
+border-radius: 20px;
+top: calc(50% - 7px);
+height: 2px;
+`
 
 /**
  * Displays the current recommendation based on users' top songs and artists.
@@ -27,6 +64,9 @@ function Playing (props) {
    * @method getNextRec
    */
   const getNextRec = () => {
+    if (top_artists.length === 0 || top_tracks === 0) {
+      return
+    }
     props.spotify.getRecommendations({
         seed_artists: top_artists,
         seed_tracks: top_tracks,
@@ -135,7 +175,7 @@ function Playing (props) {
         </div>
       </div>
       <div id="c1" style={{color: 'white', paddingTop: '12em'}}>
-        <Visual {...features} />
+        {Object.keys(features).length !== 0 && features.constructor === Object && <Visual {...features} />}
       </div>
       <div id="c2">
         <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '2em', color: 'white'}}>
@@ -150,65 +190,65 @@ function Playing (props) {
       </div>
       <div id="c3" style={{paddingTop: "12em"}}>
         <div className="slider">
-          <div style={{color: '#f9b127', float: 'right', paddingRight: '34px'}}>{acoustic[0]} - {acoustic[1]}</div>
-          <div style={{color: '#f9b127', paddingLeft: '34px', paddingBottom: '10px'}}>Acousticness</div>
+          <div style={{color: '#f9b127', float: 'right'}}>{acoustic[0]} - {acoustic[1]}</div>
+          <div style={{color: '#f9b127', paddingBottom: '10px'}}>Acousticness</div>
           <ReactSlider 
             className="horizontal-slider"
             value={acoustic}
             renderThumb={(props, state) => <div className="thumb" id="acoustic" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" id="acoustic" {...props} index={state.index} />}
+            renderTrack={(props, state) => <StyledTrackA {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setAcoustic(val)}
             onAfterChange={getNextRec}
           />
         </div>
         <div className="slider">
-          <div style={{color: '#8169cf', float: 'right', paddingRight: '34px'}}>{dance[0]} - {dance[1]}</div>
-          <div style={{color: '#8169cf', paddingLeft: '34px', paddingBottom: '10px'}}>Danceability</div>
+          <div style={{color: '#8169cf', float: 'right'}}>{dance[0]} - {dance[1]}</div>
+          <div style={{color: '#8169cf', paddingBottom: '10px'}}>Danceability</div>
           <ReactSlider 
             className="horizontal-slider"
             value={dance}
             renderThumb={(props, state) => <div className="thumb" id="dance" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" id="dance" {...props} index={state.index} />}
+            renderTrack={(props, state) => <StyledTrackB {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setDance(val)}
             onAfterChange={getNextRec}
           />
         </div>
         <div className="slider">
-          <div style={{color: '#e82c4f', float: 'right', paddingRight: '34px'}}>{energy[0]} - {energy[1]}</div>
-          <div style={{color: '#e82c4f', paddingLeft: '34px', paddingBottom: '10px'}}>Energy</div>
+          <div style={{color: '#e82c4f', float: 'right'}}>{energy[0]} - {energy[1]}</div>
+          <div style={{color: '#e82c4f', paddingBottom: '10px'}}>Energy</div>
           <ReactSlider 
             className="horizontal-slider"
             value={energy}
             renderThumb={(props, state) => <div className="thumb" id="energy" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" id="energy" {...props} index={state.index} />}
+            renderTrack={(props, state) => <StyledTrackC {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setEnergy(val)}
             onAfterChange={getNextRec}
           />
         </div>
         <div className="slider">
-          <div style={{color: '#66bb6a', float: 'right', paddingRight: '34px'}}>{valence[0]} - {valence[1]}</div>
-          <div style={{color: '#66bb6a', paddingLeft: '34px', paddingBottom: '10px'}}>Positivity</div>
+          <div style={{color: '#66bb6a', float: 'right'}}>{valence[0]} - {valence[1]}</div>
+          <div style={{color: '#66bb6a', paddingBottom: '10px'}}>Positivity</div>
           <ReactSlider 
             className="horizontal-slider"
             value={valence}
             renderThumb={(props, state) => <div className="thumb" id="positive" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" id="positive" {...props} index={state.index} />}
+            renderTrack={(props, state) => <StyledTrackD {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setValence(val)}
             onAfterChange={getNextRec}
           />
         </div>
         <div className="slider">
-          <div style={{color: '#2784c7', float: 'right', paddingRight: '34px'}}>{popular[0]} - {popular[1]}</div>
-          <div style={{color: '#2784c7', paddingLeft: '34px', paddingBottom: '10px'}}>Popularity</div>
+          <div style={{color: '#2784c7', float: 'right'}}>{popular[0]} - {popular[1]}</div>
+          <div style={{color: '#2784c7', paddingBottom: '10px'}}>Popularity</div>
           <ReactSlider 
             className="horizontal-slider"
             value={popular}
             renderThumb={(props, state) => <div className="thumb" id="popular" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" id="popular" {...props} index={state.index} />}
+            renderTrack={(props, state) => <StyledTrackE {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setPopular(val)}
             onAfterChange={getNextRec}

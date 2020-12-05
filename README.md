@@ -15,6 +15,9 @@ Visualize-Spotify is a React web application that uses the Spotify Web API to vi
 ## Where to find the project
 Project is still in development.
 
+## Current Demo/Example
+![Demo Gif](client/demo/demo.gif)
+
 ## Licensing
 Visualize-Spotify is licensed under the Apache-2.0 License as of 2020.
 
