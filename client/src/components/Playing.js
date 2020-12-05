@@ -4,8 +4,9 @@ import './Playing.css'
 import { useDataLayerValue } from '../DataLayer'
 import { yes, no } from '../assets'
 import ReactSlider from 'react-slider'
-import Visual from './Visual'
 import styled from 'styled-components'
+import './Visual.css'
+import Polygon from 'react-polygon'
 
 
 const StyledTrackA = styled.div`
@@ -58,6 +59,12 @@ function Playing (props) {
   const [ energy, setEnergy ] = useState([0, 100])
   const [ valence, setValence ] = useState([0, 100])
   const [ popular, setPopular ] = useState([0, 100])
+
+  const [isDanceVisible, setDanceVis] = useState(false)
+  const [isPopularVisible, setPopularVis] = useState(false)
+  const [isAcousticVisible, setAcousticVis] = useState(false)
+  const [isPositiveVisible, setPositiveVis] = useState(false)
+  const [isEnergyVisible, setEnergyVis] = useState(false)
 
   /**
    * Fetches next recommendation using user's filters and preferences.
@@ -175,7 +182,43 @@ function Playing (props) {
         </div>
       </div>
       <div id="c1" style={{color: 'white', paddingTop: '12em'}}>
-        {Object.keys(features).length !== 0 && features.constructor === Object && <Visual {...features} />}
+        {Object.keys(features).length !== 0 && features.constructor === Object && <div className="main">
+            <div>
+                <div className="featureLabel" onMouseOver={() => setDanceVis(true)} onMouseOut={() => setDanceVis(false)} style={{top: '38vh', left: '29vw'}}>Danceability</div>
+                {isDanceVisible && <div id="danceLabel">{Math.round(features.danceability * 10000) / 100}</div>}
+
+                <div className="featureLabel" onMouseOver={() => setPopularVis(true)} onMouseOut={() => setPopularVis(false)} style={{top: '38vh', left: '1vw'}}>Popularity</div>
+                {isPopularVisible && <div id="popularLabel">{Math.round(features.popularity * 100) / 100}</div>}
+
+                <div className="featureLabel" onMouseOver={() => setAcousticVis(true)} onMouseOut={() => setAcousticVis(false)} style={{top: '19vh', left: '13vw'}}>Acousticness</div>
+                {isAcousticVisible && <div id="acousticLabel">{Math.round(features.acousticness * 10000) / 100}</div>}
+
+                <div className="featureLabel" onMouseOver={() => setPositiveVis(true)} onMouseOut={() => setPositiveVis(false)} style={{top: '75vh', left: '4vw'}}>Positivity</div>
+                {isPositiveVisible && <div id="positiveLabel">{Math.round(features.valence * 10000) / 100}</div>}
+
+                <div className="featureLabel" onMouseOver={() => setEnergyVis(true)} onMouseOut={() => setEnergyVis(false)} style={{top: '75vh', left: '24vw'}}>Energy</div>
+                {isEnergyVisible && <div id="energyLabel">{Math.round(features.energy * 10000) / 100}</div>}
+            </div>
+            <div className='container'>
+                <Polygon n={5}
+                    ratios={[features.acousticness, features.danceability, features.energy, features.valence, features.popularity / 100]}
+                    size={450}
+                    className='my-polygon-2'
+                    renderPoint={(point) => {
+                        return (
+                            <circle fill="rgba(255, 255, 255, 0.8)" cx={point[0]} cy={point[1]} r={5} />
+                        )
+                }} />
+                <Polygon n={5} 
+                    size={450} 
+                    className='my-polygon-3' 
+                    renderPoint={(point) => {
+                        return (
+                            <line x1={point[0]} y1={point[1]} x2="225" y2="225" stroke="rgba(255, 255, 255, 0.8)"/>
+                        )
+                    }} />
+          </div>
+        </div>}
       </div>
       <div id="c2">
         <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '2em', color: 'white'}}>

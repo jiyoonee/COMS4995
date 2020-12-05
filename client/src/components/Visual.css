@@ -12,11 +12,13 @@
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     transition: all 1s ease;
+    -webkit-transition: all 1s ease;
 }
 
 .my-polygon-2 polygon {
     fill: rgba(113, 209, 139, 0.8);
     transition: all 1s ease;
+    -webkit-transition: all 1s ease;
     stroke: rgba(255, 255, 255, 0.5);
 }
 
