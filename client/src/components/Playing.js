@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import './Playing.css'
 import { useDataLayerValue } from '../DataLayer'
 import { yes, no } from '../assets'
+import ReactSlider from 'react-slider'
 
 /**
  * Displays the current recommendation based on users' top songs and artists.
@@ -9,19 +11,43 @@ import { yes, no } from '../assets'
  */
 function Playing (props) {
   const [ current, setCurrent ] = useState({name: '', img: '', artists: [], uri: '', id: ''})
-  const [ { user, token }, dispatch ] = useDataLayerValue()
+  const [ features, setFeatures ] = useState({})
+  const [ { user, token, top_artists, top_tracks }, dispatch ] = useDataLayerValue()
+  const history = useHistory()
+
+  const [ acoustic, setAcoustic ] = useState([0, 100])
+  const [ dance, setDance ] = useState([0, 100])
+  const [ energy, setEnergy ] = useState([0, 100])
+  const [ speech, setSpeech ] = useState([0, 100])
+  const [ valence, setValence ] = useState([0, 100])
 
   /**
    * Fetches next recommendation using user's filters and preferences.
    * @method getNextRec
    */
   const getNextRec = () => {
-    props.spotify.getMyTopTracks()
-      .then(top => {
-        return top.items.slice(0,5).map(item => item.id)
-      })
-      .then((id) => {
-        props.spotify.getRecommendations({seed_tracks: id}).then((recs) => {
+    console.log('TOP_ARTISTS', top_artists)
+    console.log('TOP_TRACKS', top_tracks)
+    props.spotify.getRecommendations({
+        seed_artists: top_artists,
+        seed_tracks: top_tracks,
+        limit: 1,
+        min_acousticness: acoustic[0] / 100,
+        max_acousticness: acoustic[1] / 100,
+        min_danceability: dance[0] / 100, 
+        max_danceability: dance[1] / 100,
+        min_energy: energy[0] / 100,
+        max_energy: energy[1] / 100,
+        min_speechiness: speech[0] / 100,
+        max_speechiness: speech[1] / 100,
+        min_valence: valence[0] / 100, 
+        max_valence: valence[1] / 100,
+      }).then((recs) => {
+        if (recs.tracks.length === 0) {
+          alert('No recommendations for your preferences! Try expanding your search options.')
+          resetOptions()
+          return
+        } else {
           console.log(recs)
           setCurrent({
             name: recs.tracks[0].name, 
@@ -30,9 +56,13 @@ function Playing (props) {
             uri: recs.tracks[0].uri,
             id: recs.tracks[0].id})
           playSong(recs.tracks[0].uri)
+
+        props.spotify.getAudioFeaturesForTrack(recs.tracks[0].id).then((ft) => {
+          console.log(ft)
+          setFeatures(ft)
         })
-      })
-    
+      }
+    })
   }
 
   /**
@@ -55,14 +85,13 @@ function Playing (props) {
    * @method handleYes
    */
   const handleYes = () => {
-    console.log(current.id)
     props.spotify.addToMySavedTracks({ids: [current.id]})
     getNextRec()
   }
 
   useEffect(() => {
     getNextRec()
-  }, [])
+  }, [top_artists, top_artists])
 
   /**
    * Formats an array of artist names 
@@ -72,30 +101,176 @@ function Playing (props) {
     return current.artists.map(artist => artist.name).join(', ')
   }
 
+  /**
+   * Logs user out, removing the access token.
+   * @method logOut
+   */
+  const logOut = () => {
+    dispatch({
+      type: 'SET_TOKEN',
+      token: null
+    })
+    props.spotify.setAccessToken(null)
+    history.push('/')
+  }
+
+  /**
+   * Resets all filters to default (min 0, max 100).
+   * @method resetOptions
+   */
+  const resetOptions = () => {
+    setAcoustic([0,100])
+    setDance([0,100])
+    setEnergy([0,100])
+    setSpeech([0,100])
+    setValence([0,100])
+  }
+
+  const convertKey = (_key, mode) => {
+    let key = ''
+    switch(_key) {
+      case 0:
+        key = 'C'
+        break
+      case 1:
+        key = 'C#'
+        break 
+      case 2:
+        key = 'D'
+        break 
+      case 3:
+        key = 'Eb'
+        break 
+      case 4:
+        key = 'E'
+        break 
+      case 5: 
+        key = 'F'
+        break 
+      case 6:
+        key = 'Gb'
+        break 
+      case 7: 
+        key = 'G'
+        break 
+      case 8: 
+        key = 'Ab'
+        break 
+      case 9: 
+        key = 'A' 
+        break 
+      case 10: 
+        key = 'Bb'
+        break 
+      case 11: 
+        key = 'B' 
+        break 
+    }
+    let maj_min = '' 
+    if (mode == 1) {
+      maj_min = 'major'
+    } else {
+      maj_min = 'minor'
+    }
+
+    return `${key} ${maj_min}`
+  }
+
   return (
     <div className="Container">
       <div className="header">
-        <div id="userInfo">
+        <div id="userInfo" style={{cursor: "pointer"}} onClick={logOut}>
           {user && <img style={{width: "50px", borderRadius: "50%", marginRight: "10px"}} src={user.images[0].url} alt='' />}
           <b>{user && user.display_name}</b>
         </div>
       </div>
-      <div id="c1">
-        Visualization of current track 
+      <div id="c1" style={{color: 'white', padding: '10em 30px'}}>
+        Key and mode: {convertKey(features.key, features.mode)} <br/>
+
+        Acousticness: {features.acousticness} <br/>
+        Danceability: {features.danceability} <br />
+        Energy: {features.energy} <br /> 
+        Speechiness: {features.speechiness} <br/>
+        Valence: {features.valence} <br />
       </div>
       <div id="c2">
         <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '5em', color: 'white'}}>
           <div style={{fontSize: "30px"}}>{current.name}</div>
-          <div style={{fontSize: "15px", paddingTop: '10px'}}>{formatArtists()}</div>
-          <img src={current.img} style={{width: '280px', padding: '30px'}} alt=''/>
+          <div style={{fontSize: "15px", paddingTop: '10px', paddingBottom: '30px'}}>{formatArtists()}</div>
+          <div className="imageContainer" style={{backgroundImage: "url(" + current.img + ")"}} ></div>
           <div className="buttons">
             <img style={{width: '80px', cursor: 'pointer'}} src={no} onClick={getNextRec} alt='' />
             <img style={{width: '80px', cursor: 'pointer'}} src={yes} onClick={handleYes} alt='' />
           </div>
         </div>
       </div>
-      <div id="c3">
-        Filters
+      <div id="c3" style={{paddingTop: "10em"}}>
+        <div className="slider">
+          <div style={{color: '#f9b127', float: 'right', paddingRight: '34px'}}>{acoustic[0]} - {acoustic[1]}</div>
+          <div style={{color: '#f9b127', paddingLeft: '34px', paddingBottom: '10px'}}>Acousticness</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={acoustic}
+            renderThumb={(props, state) => <div className="thumb" style={{ backgroundColor: "#f9b127 !important"}} {...props}></div>}
+            renderTrack={(props, state) => <div className="track" style={{ background: "#f9b127 !important" }} {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setAcoustic(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <div className="slider">
+          <div style={{color: '#8169cf', float: 'right', paddingRight: '34px'}}>{dance[0]} - {dance[1]}</div>
+          <div style={{color: '#8169cf', paddingLeft: '34px', paddingBottom: '10px'}}>Danceability</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={dance}
+            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setDance(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <div className="slider">
+          <div style={{color: '#e82c4f', float: 'right', paddingRight: '34px'}}>{energy[0]} - {energy[1]}</div>
+          <div style={{color: '#e82c4f', paddingLeft: '34px', paddingBottom: '10px'}}>Energy</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={energy}
+            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setEnergy(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <div className="slider">
+          <div style={{color: '#27a79a', float: 'right', paddingRight: '34px'}}>{speech[0]} - {speech[1]}</div>
+          <div style={{color: '#27a79a', paddingLeft: '34px', paddingBottom: '10px'}}>Speechiness</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={speech}
+            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setSpeech(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <div className="slider">
+          <div style={{color: '#66bb6a', float: 'right', paddingRight: '34px'}}>{valence[0]} - {valence[1]}</div>
+          <div style={{color: '#66bb6a', paddingLeft: '34px', paddingBottom: '10px'}}>Valence</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={valence}
+            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setValence(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <button id="reset" onClick={() => {resetOptions(); getNextRec(); }} >Reset</button>
       </div>
     </div>
   )

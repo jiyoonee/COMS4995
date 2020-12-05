@@ -33,3 +33,51 @@
     display: flex; 
     align-items: center; 
 }
+
+.imageContainer {
+    margin: auto;
+    background-size: contain;
+
+    width: 280px;
+    height: 280px;
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.horizontal-slider {
+    margin: auto;
+    width: 80%;
+    height: 25px;
+}
+
+.thumb {
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: grab;
+    outline: none;
+}
+
+.track {
+    background: white;
+    top: calc(50% - 7px);
+    height: 2px;
+}
+
+.slider {
+    margin-bottom: 30px;
+}
+
+#reset {
+    margin-right: 34px; 
+    float: right; 
+    font-family: Avenir;
+    font-size: 15px;
+    border: none;
+    padding: 5px 20px; 
+    cursor: pointer;
+    outline: none;
+}

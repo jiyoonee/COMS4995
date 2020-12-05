@@ -26,12 +26,26 @@ function App () {
       })
       spotify.setAccessToken(_token)
 
-      spotify.getMe().then((user) => { 
+      spotify.getMe().then((user) => {
         dispatch({
           type: 'SET_USER',
           user: user 
         })
       }) 
+
+      spotify.getMyTopTracks().then(top => {
+        dispatch({
+          type: 'SET_TOP_TRACKS',
+          top_tracks: top.items.slice(0,2).map(item => item.id)
+        })
+      })
+
+      spotify.getMyTopArtists().then(top => {
+        dispatch({
+          type: 'SET_TOP_ARTISTS',
+          top_artists: top.items.slice(0,3).map(item => item.id)
+        })
+      })
     }
   })
 

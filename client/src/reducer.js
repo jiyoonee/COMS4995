@@ -1,7 +1,9 @@
 export const initialState = {
     user: null,
     token: null,
-    recs: []
+    recs: [],
+    top_tracks: [],
+    top_artists: []
 }
 
 const reducer = (state, action) => {
@@ -20,6 +22,16 @@ const reducer = (state, action) => {
               ...state, 
               token: action.token
           }
+        case 'SET_TOP_TRACKS':
+          return {
+              ...state, 
+              top_tracks: action.top_tracks
+          }
+        case 'SET_TOP_ARTISTS':
+        return {
+            ...state, 
+            top_artists: action.top_artists
+        }
         default:
           return state
     }
