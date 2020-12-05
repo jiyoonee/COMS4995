@@ -1,0 +1,83 @@
+.main {
+    text-align: center;
+}
+
+.container {
+    position: relative;
+}
+
+.my-polygon-2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transition: all 1s ease;
+}
+
+.my-polygon-2 polygon {
+    fill: rgba(113, 209, 139, 0.7);
+    stroke: #000;
+    stroke-width: 1px;
+    transition: all 1s ease;
+}
+
+.my-polygon-3 polygon {
+    fill: rgba(255, 255, 255, 0.1);
+}
+
+#danceLabel {
+    background-color: #8169cf; 
+    position: absolute;
+    top: 34vh;
+    left: 31vw;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+#acousticLabel {
+    background-color: #f9b127;
+    position: absolute; 
+    top: 15vh; 
+    left: 15vw;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+#popularLabel {
+    background-color: #2784c7;
+    position: absolute; 
+    top: 34vh; 
+    left: 3vw;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+#positiveLabel {
+    background-color: #66bb6a;
+    position: absolute; 
+    top: 80vh; 
+    left: 5vw;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+#energyLabel {
+    background-color: #e82c4f;
+    position: absolute; 
+    top: 80vh; 
+    left: 25vw;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+.featureLabel {
+    cursor: pointer;
+    z-index: 20;
+    padding: 10px;
+    position: absolute; 
+}

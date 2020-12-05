@@ -4,6 +4,7 @@ import './Playing.css'
 import { useDataLayerValue } from '../DataLayer'
 import { yes, no } from '../assets'
 import ReactSlider from 'react-slider'
+import Visual from './Visual'
 
 /**
  * Displays the current recommendation based on users' top songs and artists.
@@ -18,16 +19,14 @@ function Playing (props) {
   const [ acoustic, setAcoustic ] = useState([0, 100])
   const [ dance, setDance ] = useState([0, 100])
   const [ energy, setEnergy ] = useState([0, 100])
-  const [ speech, setSpeech ] = useState([0, 100])
   const [ valence, setValence ] = useState([0, 100])
+  const [ popular, setPopular ] = useState([0, 100])
 
   /**
    * Fetches next recommendation using user's filters and preferences.
    * @method getNextRec
    */
   const getNextRec = () => {
-    console.log('TOP_ARTISTS', top_artists)
-    console.log('TOP_TRACKS', top_tracks)
     props.spotify.getRecommendations({
         seed_artists: top_artists,
         seed_tracks: top_tracks,
@@ -38,10 +37,10 @@ function Playing (props) {
         max_danceability: dance[1] / 100,
         min_energy: energy[0] / 100,
         max_energy: energy[1] / 100,
-        min_speechiness: speech[0] / 100,
-        max_speechiness: speech[1] / 100,
         min_valence: valence[0] / 100, 
         max_valence: valence[1] / 100,
+        min_popularity: popular[0], 
+        max_popularity: popular[1]
       }).then((recs) => {
         if (recs.tracks.length === 0) {
           alert('No recommendations for your preferences! Try expanding your search options.')
@@ -58,8 +57,9 @@ function Playing (props) {
           playSong(recs.tracks[0].uri)
 
         props.spotify.getAudioFeaturesForTrack(recs.tracks[0].id).then((ft) => {
-          console.log(ft)
-          setFeatures(ft)
+          props.spotify.getTrack(recs.tracks[0].id).then(info => {
+            setFeatures({...ft, popularity: info.popularity})
+          })
         })
       }
     })
@@ -122,58 +122,8 @@ function Playing (props) {
     setAcoustic([0,100])
     setDance([0,100])
     setEnergy([0,100])
-    setSpeech([0,100])
     setValence([0,100])
-  }
-
-  const convertKey = (_key, mode) => {
-    let key = ''
-    switch(_key) {
-      case 0:
-        key = 'C'
-        break
-      case 1:
-        key = 'C#'
-        break 
-      case 2:
-        key = 'D'
-        break 
-      case 3:
-        key = 'Eb'
-        break 
-      case 4:
-        key = 'E'
-        break 
-      case 5: 
-        key = 'F'
-        break 
-      case 6:
-        key = 'Gb'
-        break 
-      case 7: 
-        key = 'G'
-        break 
-      case 8: 
-        key = 'Ab'
-        break 
-      case 9: 
-        key = 'A' 
-        break 
-      case 10: 
-        key = 'Bb'
-        break 
-      case 11: 
-        key = 'B' 
-        break 
-    }
-    let maj_min = '' 
-    if (mode == 1) {
-      maj_min = 'major'
-    } else {
-      maj_min = 'minor'
-    }
-
-    return `${key} ${maj_min}`
+    setPopular([0,100])
   }
 
   return (
@@ -184,19 +134,13 @@ function Playing (props) {
           <b>{user && user.display_name}</b>
         </div>
       </div>
-      <div id="c1" style={{color: 'white', padding: '10em 30px'}}>
-        Key and mode: {convertKey(features.key, features.mode)} <br/>
-
-        Acousticness: {features.acousticness} <br/>
-        Danceability: {features.danceability} <br />
-        Energy: {features.energy} <br /> 
-        Speechiness: {features.speechiness} <br/>
-        Valence: {features.valence} <br />
+      <div id="c1" style={{color: 'white', paddingTop: '12em'}}>
+        <Visual {...features} />
       </div>
       <div id="c2">
-        <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '5em', color: 'white'}}>
+        <div style={{textAlign: 'center', fontFamily: 'Avenir', paddingTop: '2em', color: 'white'}}>
           <div style={{fontSize: "30px"}}>{current.name}</div>
-          <div style={{fontSize: "15px", paddingTop: '10px', paddingBottom: '30px'}}>{formatArtists()}</div>
+          <div style={{fontSize: "15px", paddingTop: '10px', paddingBottom: '4em'}}>{formatArtists()}</div>
           <div className="imageContainer" style={{backgroundImage: "url(" + current.img + ")"}} ></div>
           <div className="buttons">
             <img style={{width: '80px', cursor: 'pointer'}} src={no} onClick={getNextRec} alt='' />
@@ -204,7 +148,7 @@ function Playing (props) {
           </div>
         </div>
       </div>
-      <div id="c3" style={{paddingTop: "10em"}}>
+      <div id="c3" style={{paddingTop: "12em"}}>
         <div className="slider">
           <div style={{color: '#f9b127', float: 'right', paddingRight: '34px'}}>{acoustic[0]} - {acoustic[1]}</div>
           <div style={{color: '#f9b127', paddingLeft: '34px', paddingBottom: '10px'}}>Acousticness</div>
@@ -245,21 +189,8 @@ function Playing (props) {
           />
         </div>
         <div className="slider">
-          <div style={{color: '#27a79a', float: 'right', paddingRight: '34px'}}>{speech[0]} - {speech[1]}</div>
-          <div style={{color: '#27a79a', paddingLeft: '34px', paddingBottom: '10px'}}>Speechiness</div>
-          <ReactSlider 
-            className="horizontal-slider"
-            value={speech}
-            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
-            minDistance={5}
-            onChange={val => setSpeech(val)}
-            onAfterChange={getNextRec}
-          />
-        </div>
-        <div className="slider">
           <div style={{color: '#66bb6a', float: 'right', paddingRight: '34px'}}>{valence[0]} - {valence[1]}</div>
-          <div style={{color: '#66bb6a', paddingLeft: '34px', paddingBottom: '10px'}}>Valence</div>
+          <div style={{color: '#66bb6a', paddingLeft: '34px', paddingBottom: '10px'}}>Positivity</div>
           <ReactSlider 
             className="horizontal-slider"
             value={valence}
@@ -267,6 +198,19 @@ function Playing (props) {
             renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setValence(val)}
+            onAfterChange={getNextRec}
+          />
+        </div>
+        <div className="slider">
+          <div style={{color: '#2784c7', float: 'right', paddingRight: '34px'}}>{popular[0]} - {popular[1]}</div>
+          <div style={{color: '#2784c7', paddingLeft: '34px', paddingBottom: '10px'}}>Popularity</div>
+          <ReactSlider 
+            className="horizontal-slider"
+            value={popular}
+            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            minDistance={5}
+            onChange={val => setPopular(val)}
             onAfterChange={getNextRec}
           />
         </div>
