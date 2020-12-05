@@ -57,16 +57,34 @@
 .thumb {
     height: 15px;
     width: 15px;
-    background-color: white;
     border-radius: 50%;
     cursor: grab;
     outline: none;
 }
 
 .track {
-    background: white;
     top: calc(50% - 7px);
     height: 2px;
+}
+
+#acoustic {
+    background: #f9b127;
+}
+
+#dance {
+    background: #8169cf;
+}
+
+#energy {
+    background: #e82c4f;
+}
+
+#positive {
+    background: #66bb6a;
+}
+
+#popular {
+    background: #2784c7;
 }
 
 .slider {

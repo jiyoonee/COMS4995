@@ -155,8 +155,8 @@ function Playing (props) {
           <ReactSlider 
             className="horizontal-slider"
             value={acoustic}
-            renderThumb={(props, state) => <div className="thumb" style={{ backgroundColor: "#f9b127 !important"}} {...props}></div>}
-            renderTrack={(props, state) => <div className="track" style={{ background: "#f9b127 !important" }} {...props} index={state.index} />}
+            renderThumb={(props, state) => <div className="thumb" id="acoustic" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" id="acoustic" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setAcoustic(val)}
             onAfterChange={getNextRec}
@@ -168,8 +168,8 @@ function Playing (props) {
           <ReactSlider 
             className="horizontal-slider"
             value={dance}
-            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            renderThumb={(props, state) => <div className="thumb" id="dance" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" id="dance" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setDance(val)}
             onAfterChange={getNextRec}
@@ -181,8 +181,8 @@ function Playing (props) {
           <ReactSlider 
             className="horizontal-slider"
             value={energy}
-            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            renderThumb={(props, state) => <div className="thumb" id="energy" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" id="energy" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setEnergy(val)}
             onAfterChange={getNextRec}
@@ -194,8 +194,8 @@ function Playing (props) {
           <ReactSlider 
             className="horizontal-slider"
             value={valence}
-            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            renderThumb={(props, state) => <div className="thumb" id="positive" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" id="positive" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setValence(val)}
             onAfterChange={getNextRec}
@@ -207,8 +207,8 @@ function Playing (props) {
           <ReactSlider 
             className="horizontal-slider"
             value={popular}
-            renderThumb={(props, state) => <div className="thumb" {...props}></div>}
-            renderTrack={(props, state) => <div className="track" {...props} index={state.index} />}
+            renderThumb={(props, state) => <div className="thumb" id="popular" {...props}></div>}
+            renderTrack={(props, state) => <div className="track" id="popular" {...props} index={state.index} />}
             minDistance={5}
             onChange={val => setPopular(val)}
             onAfterChange={getNextRec}

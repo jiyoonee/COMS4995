@@ -3,6 +3,7 @@ import './Visual.css'
 import Polygon from 'react-polygon'
 
 function Visual (props) {
+    /* 213.988, 203.5144 */
     const [isDanceVisible, setDance] = useState(false)
     const [isPopularVisible, setPopular] = useState(false)
     const [isAcousticVisible, setAcoustic] = useState(false)
@@ -29,15 +30,24 @@ function Visual (props) {
             </div>
             <div className='container'>
                 <Polygon n={5}
-                ratios={[props.acousticness, props.danceability, props.energy, props.valence, props.popularity / 100]}
-                size={450}
-                className='my-polygon-2'
-                renderPoint={(point) => {
-                    return (
-                        <circle fill="black" cx={point[0]} cy={point[1]} r={5} />
-                    )
+                    ratios={[props.acousticness, props.danceability, props.energy, props.valence, props.popularity / 100]}
+                    size={450}
+                    className='my-polygon-2'
+                    renderPoint={(point) => {
+                        return (
+                            <circle fill="rgba(255, 255, 255, 0.8)" cx={point[0]} cy={point[1]} r={5} />
+                        )
                 }} />
-                <Polygon n={5} size={450} className='my-polygon-3' />
+                <Polygon n={5} 
+                    size={450} 
+                    className='my-polygon-3' 
+                    renderPoint={(point) => {
+                        return (
+                            <svg>
+                                <line x1={point[0]} y1={point[1]} x2="225" y2="225" stroke="rgba(255, 255, 255, 0.8)"/>
+                            </svg>
+                        )
+                    }} />
           </div>
         </div>
     )

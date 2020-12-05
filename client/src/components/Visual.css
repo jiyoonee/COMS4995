@@ -15,14 +15,14 @@
 }
 
 .my-polygon-2 polygon {
-    fill: rgba(113, 209, 139, 0.7);
-    stroke: #000;
-    stroke-width: 1px;
+    fill: rgba(113, 209, 139, 0.8);
     transition: all 1s ease;
+    stroke: rgba(255, 255, 255, 0.5);
 }
 
 .my-polygon-3 polygon {
     fill: rgba(255, 255, 255, 0.1);
+    stroke: rgba(255, 255, 255, 0.5);
 }
 
 #danceLabel {
@@ -36,7 +36,7 @@
 }
 
 #acousticLabel {
-    background-color: #f9b127;
+    background-color: #c28e2f; 
     position: absolute; 
     top: 15vh; 
     left: 15vw;
