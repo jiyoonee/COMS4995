@@ -40,26 +40,24 @@ To be determined
 # Developer Documentation
 ## Getting Started
 Clone this repository and run `npm install` to install all the necessary dependencies.
-Before starting the client interface, start the authentication server by running the following:
-```
-$ cd auth-server/authorization_code
-$ node app.js
-```
-The server will be running on http://localhost:8888 <br/>
 
-Then navigate to the client directory and launch the application in developer mode.
+Navigate to the client directory and launch the application in developer mode (this web application does not have a separate server).
 ```
 $ cd client
-$ npm install
 $ npm start
 ```
 The client will be running on http://localhost:3000
 
+
 ## Code Structure
-Visualize-Spotify's codebase is largely divided into two directories named `auth-server` and `client` for the authentication server and client interface, respectively. The original code for `auth-server` can be found in [this open-source repository](https://github.com/spotify/web-api-auth-examples). Modifications were made to `authorization_code/app.js` as follows and are subject to more modifications based on necessary permissions:
-  - Added client_id, client_secret, and redirect_uri for the app that was created at [Spotify for Developers](https://developer.spotify.com/).
-  - Added permissions to the scope variable.
-  - Modified the redirect url following authentication to be the client interface.
+The source code for Visualize-Spotify can be found in the src directory. This includes:
+  - <strong>App.js</strong>: The main interface. Includes the context layer API as well as routing based on authentication status.
+  - <strong>DataLayer, reducer</strong>: The data layer of the application that allows certain props to fetched from anywhere in the project structure.
+  - <strong>spotify.js</strong>: The spotify configuration file for authentication. Includes the client ID, authorization scopes, and redirect URI that would return a token to the user. 
+  - <strong>assets</strong>: A directory holding all SVG files.
+  - <strong>components</strong>: A directory holding all the page components as well as their stylesheets. 
+  - <strong>config</string>: A directory that holds the config file for the react-particles background. 
+  - <strong>tests</strong>: A directory holding the files for jest testing. 
 
 Page components should be in `src/components` directory along with their CSS stylesheets.
 
@@ -79,6 +77,8 @@ Visualize-Spotify uses Travis-CI test builds. The configuration file can be foun
 There are currently no extensions or integration authors.
 
 ## Release Notes and Roadmap
+  - Version 0.2.0 has been released and includes a fully functioning landing page that hooks up with the Spotify Web API. It generates recommendations based on a <strong>combination of the user's top artists and tracks</strong> as well as filter ranges with regard to track analytics including <strong>danceability, acousticness, positivity, energy, and popularity</strong>. The interface includes a graph visualizing these five metrics for each track. Users also have the ability to swipe through these recommendations, either rejecting it and going on the next recommendation, or accepting it and adding it to their liked songs. 
+<br/>
   - Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up.
   - Next releases will focus on fetching track analytics and implementing the recommendation system.
 
