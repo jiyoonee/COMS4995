@@ -32,6 +32,8 @@ None
 ## FAQ
 To be determined
 ## Release Notes and Version Info
+  - v0.2.0
+    - v0.2.0 introduces a fully functioning landing screen with filtering, visualizations, and added user capabilities to swipe through songs and add them to their liked songs.
   - v0.1.0
     - v0.1.0 introduces a landing screen with Spotify authentication. Upon authentication, the user is redirected to a page where they can view the information of the song that they are currently playing.
 
@@ -56,7 +58,7 @@ The source code for Visualize-Spotify can be found in the src directory. This in
   - <strong>spotify.js</strong>: The spotify configuration file for authentication. Includes the client ID, authorization scopes, and redirect URI that would return a token to the user. 
   - <strong>assets</strong>: A directory holding all SVG files.
   - <strong>components</strong>: A directory holding all the page components as well as their stylesheets. 
-  - <strong>config</string>: A directory that holds the config file for the react-particles background. 
+  - <strong>config</strong>: A directory that holds the config file for the react-particles background. 
   - <strong>tests</strong>: A directory holding the files for jest testing. 
 
 Page components should be in `src/components` directory along with their CSS stylesheets.
@@ -77,9 +79,8 @@ Visualize-Spotify uses Travis-CI test builds. The configuration file can be foun
 There are currently no extensions or integration authors.
 
 ## Release Notes and Roadmap
-  - Version 0.2.0 has been released and includes a fully functioning landing page that hooks up with the Spotify Web API. It generates recommendations based on a <strong>combination of the user's top artists and tracks</strong> as well as filter ranges with regard to track analytics including <strong>danceability, acousticness, positivity, energy, and popularity</strong>. The interface includes a graph visualizing these five metrics for each track. Users also have the ability to swipe through these recommendations, either rejecting it and going on the next recommendation, or accepting it and adding it to their liked songs. 
-<br/>
-  - Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up.
+  - Version 0.2.0 has been released and includes a fully functioning landing page that hooks up with the Spotify Web API. It generates recommendations based on a <strong>combination of the user's top artists and tracks</strong> as well as filter ranges with regard to track analytics including <strong>danceability, acousticness, positivity, energy, and popularity</strong>. The interface includes a graph visualizing these five metrics for each track. Users also have the ability to swipe through these recommendations, either rejecting it and going on the next recommendation, or accepting it and adding it to their liked songs. </br>
+  - Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up. </br>
   - Next releases will focus on fetching track analytics and implementing the recommendation system.
 
 ## API Documentation
