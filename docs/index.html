@@ -73,6 +73,11 @@
 <p>To be determined</p>
 <h2>Release Notes and Version Info</h2>
 <ul>
+<li>v0.2.0
+<ul>
+<li>v0.2.0 introduces a fully functioning landing screen with filtering, visualizations, and added user capabilities to swipe through songs and add them to their liked songs.</li>
+</ul>
+</li>
 <li>v0.1.0
 <ul>
 <li>v0.1.0 introduces a landing screen with Spotify authentication. Upon authentication, the user is redirected to a page where they can view the information of the song that they are currently playing.</li>
@@ -82,24 +87,22 @@
 <hr>
 <h1>Developer Documentation</h1>
 <h2>Getting Started</h2>
-<p>Clone this repository and run <code>npm install</code> to install all the necessary dependencies.
-Before starting the client interface, start the authentication server by running the following:</p>
-<pre class="prettyprint source"><code>$ cd auth-server/authorization_code
-$ node app.js
-</code></pre>
-<p>The server will be running on http://localhost:8888 <br/></p>
-<p>Then navigate to the client directory and launch the application in developer mode.</p>
+<p>Clone this repository and run <code>npm install</code> to install all the necessary dependencies.</p>
+<p>Navigate to the client directory and launch the application in developer mode (this web application does not have a separate server).</p>
 <pre class="prettyprint source"><code>$ cd client
-$ npm install
 $ npm start
 </code></pre>
 <p>The client will be running on http://localhost:3000</p>
 <h2>Code Structure</h2>
-<p>Visualize-Spotify's codebase is largely divided into two directories named <code>auth-server</code> and <code>client</code> for the authentication server and client interface, respectively. The original code for <code>auth-server</code> can be found in <a href="https://github.com/spotify/web-api-auth-examples">this open-source repository</a>. Modifications were made to <code>authorization_code/app.js</code> as follows and are subject to more modifications based on necessary permissions:</p>
+<p>The source code for Visualize-Spotify can be found in the src directory. This includes:</p>
 <ul>
-<li>Added client_id, client_secret, and redirect_uri for the app that was created at <a href="https://developer.spotify.com/">Spotify for Developers</a>.</li>
-<li>Added permissions to the scope variable.</li>
-<li>Modified the redirect url following authentication to be the client interface.</li>
+<li><strong>App.js</strong>: The main interface. Includes the context layer API as well as routing based on authentication status.</li>
+<li><strong>DataLayer, reducer</strong>: The data layer of the application that allows certain props to fetched from anywhere in the project structure.</li>
+<li><strong>spotify.js</strong>: The spotify configuration file for authentication. Includes the client ID, authorization scopes, and redirect URI that would return a token to the user.</li>
+<li><strong>assets</strong>: A directory holding all SVG files.</li>
+<li><strong>components</strong>: A directory holding all the page components as well as their stylesheets.</li>
+<li><strong>config</strong>: A directory that holds the config file for the react-particles background.</li>
+<li><strong>tests</strong>: A directory holding the files for jest testing.</li>
 </ul>
 <p>Page components should be in <code>src/components</code> directory along with their CSS stylesheets.</p>
 <h2>CI Documentation</h2>
@@ -131,7 +134,8 @@ $ npm start
 <p>There are currently no extensions or integration authors.</p>
 <h2>Release Notes and Roadmap</h2>
 <ul>
-<li>Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up.</li>
+<li>Version 0.2.0 has been released and includes a fully functioning landing page that hooks up with the Spotify Web API. It generates recommendations based on a <strong>combination of the user's top artists and tracks</strong> as well as filter ranges with regard to track analytics including <strong>danceability, acousticness, positivity, energy, and popularity</strong>. The interface includes a graph visualizing these five metrics for each track. Users also have the ability to swipe through these recommendations, either rejecting it and going on the next recommendation, or accepting it and adding it to their liked songs. </br></li>
+<li>Version 0.1.0 has been released and includes a landing page with authentication. Upon authentication, the application redirects to an interface where users can check the current song on play. The Spotify Web API has been hooked up. </br></li>
 <li>Next releases will focus on fetching track analytics and implementing the recommendation system.</li>
 </ul>
 <h2>API Documentation</h2>
@@ -146,13 +150,13 @@ $ npm start
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#formatArtists">formatArtists</a></li><li><a href="global.html#getNextRec">getNextRec</a></li><li><a href="global.html#handleYes">handleYes</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#Playing">Playing</a></li><li><a href="global.html#playSong">playSong</a></li><li><a href="global.html#resetOptions">resetOptions</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#formatArtists">formatArtists</a></li><li><a href="global.html#getNextRec">getNextRec</a></li><li><a href="global.html#handleYes">handleYes</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#Playing">Playing</a></li><li><a href="global.html#playSong">playSong</a></li><li><a href="global.html#resetOptions">resetOptions</a></li><li><a href="global.html#set_top_artists">set_top_artists</a></li><li><a href="global.html#set_top_tracks">set_top_tracks</a></li><li><a href="global.html#set_user">set_user</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Dec 07 2020 19:44:01 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Dec 19 2020 21:58:42 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

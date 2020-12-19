@@ -6,7 +6,7 @@ import { loginUrl } from '../spotify';
 
 /**
  * Prompts the user for login and permissions and sets access token.
- * @param {Spotify} spotify - Instance of Spotify Web API that holds user authentication tokens.
+ * @param {module} spotify - Instance of Spotify Web API that holds user authentication tokens.
  * @param {function} setToken - Function that updates the user token on successful authentication.
  */
 function Login (props) {

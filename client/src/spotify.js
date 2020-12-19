@@ -19,6 +19,7 @@ const scopes = [
  * @method getHashParams
  */
 export const getHashParams = () => {
+    console.log(window.location.hash)
     return window.location.hash
         .substring(1)
         .split('&')

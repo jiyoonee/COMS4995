@@ -46,9 +46,9 @@ height: 2px;
 
 /**
  * Displays the current recommendation based on users' top songs and artists.
- * @param {Spotify} spotify - Instance of Spotify Web API that holds user authentication tokens.
+ * @param {module} spotify - Instance of Spotify Web API that holds user authentication tokens.
  */
-function Playing (props) {
+function Playing ({ spotify }) {
   const [ current, setCurrent ] = useState({name: '', img: '', artists: [], uri: '', id: ''})
   const [ features, setFeatures ] = useState({})
   const [ { user, token, top_artists, top_tracks }, dispatch ] = useDataLayerValue()
@@ -71,10 +71,10 @@ function Playing (props) {
    * @method getNextRec
    */
   const getNextRec = () => {
-    if (top_artists.length === 0 || top_tracks === 0) {
+    if (!top_artists || !top_tracks || top_artists.length === 0 || top_tracks === 0) {
       return
     }
-    props.spotify.getRecommendations({
+    spotify.getRecommendations({
         seed_artists: top_artists,
         seed_tracks: top_tracks,
         limit: 1,
@@ -103,8 +103,8 @@ function Playing (props) {
             id: recs.tracks[0].id})
           playSong(recs.tracks[0].uri)
 
-        props.spotify.getAudioFeaturesForTrack(recs.tracks[0].id).then((ft) => {
-          props.spotify.getTrack(recs.tracks[0].id).then(info => {
+        spotify.getAudioFeaturesForTrack(recs.tracks[0].id).then((ft) => {
+          spotify.getTrack(recs.tracks[0].id).then(info => {
             setFeatures({...ft, popularity: info.popularity})
           })
         })
@@ -132,7 +132,7 @@ function Playing (props) {
    * @method handleYes
    */
   const handleYes = () => {
-    props.spotify.addToMySavedTracks({ids: [current.id]})
+    spotify.addToMySavedTracks({ids: [current.id]})
     getNextRec()
   }
 
@@ -158,7 +158,7 @@ function Playing (props) {
       type: 'SET_TOKEN',
       token: null
     })
-    props.spotify.setAccessToken(null)
+    spotify.setAccessToken(null)
     history.push('/')
   }
 

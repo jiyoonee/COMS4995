@@ -12,8 +12,50 @@ const spotify = new Spotify();
  * Handles routes to different pages based on whether the user has been authenticated and initializes the Spotify Web API instance.
  */
 function App () {
-  
+
   const [{ token }, dispatch] = useDataLayerValue()
+
+  /**
+   * Saves user info to web application's context API.
+   * @param {string} token - user's access token.
+   * @method set_user
+   */
+  const set_user = () => {
+    spotify.getMe().then((user) => {
+      dispatch({
+        type: 'SET_USER',
+        user: user 
+      })
+    })  
+  }
+
+  /**
+   * Saves top tracks info to web application's context API.
+   * @param {string} token - user's access token.
+   * @method set_top_tracks
+   */
+  const set_top_tracks = () => {
+    spotify.getMyTopTracks().then(top => {
+      dispatch({
+        type: 'SET_TOP_TRACKS',
+        top_tracks: top.items.slice(0,2).map(item => item.id)
+      })
+    })
+  }
+
+  /**
+   * Saves top artists info to web application's context API.
+   * @param {string} token - user's access token.
+   * @method set_top_artists
+   */
+  const set_top_artists = () => {
+    spotify.getMyTopArtists().then(top => {
+      dispatch({
+        type: 'SET_TOP_ARTISTS',
+        top_artists: top.items.slice(0,3).map(item => item.id)
+      })
+    })
+  }
   
   useEffect(() => {
     const hash = getHashParams()
@@ -26,27 +68,9 @@ function App () {
         token: _token
       })
       spotify.setAccessToken(_token)
-
-      spotify.getMe().then((user) => {
-        dispatch({
-          type: 'SET_USER',
-          user: user 
-        })
-      }) 
-
-      spotify.getMyTopTracks().then(top => {
-        dispatch({
-          type: 'SET_TOP_TRACKS',
-          top_tracks: top.items.slice(0,2).map(item => item.id)
-        })
-      })
-
-      spotify.getMyTopArtists().then(top => {
-        dispatch({
-          type: 'SET_TOP_ARTISTS',
-          top_artists: top.items.slice(0,3).map(item => item.id)
-        })
-      })
+      set_user()
+      set_top_tracks()
+      set_top_artists()
     }
   })
 
