@@ -138,6 +138,7 @@ function Playing (props) {
 
   useEffect(() => {
     getNextRec()
+  // eslint-disable-next-line
   }, [top_artists, top_artists])
 
   /**

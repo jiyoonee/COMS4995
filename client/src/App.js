@@ -12,8 +12,9 @@ const spotify = new Spotify();
  * Handles routes to different pages based on whether the user has been authenticated and initializes the Spotify Web API instance.
  */
 function App () {
+  
   const [{ token }, dispatch] = useDataLayerValue()
-
+  
   useEffect(() => {
     const hash = getHashParams()
     window.location.hash = ""

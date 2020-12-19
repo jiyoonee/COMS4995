@@ -14,8 +14,9 @@ test('renders login text on access w/o authentication', () => {
   render(<App />);
   expect(screen.getByText('Welcome to Visualize-Spotify!')).toBeInTheDocument();
 })
-
+/*
 test('renders playing.js', () => {
   const div = document.createElement('div');
   ReactDOM.render(<Playing />, div);
 })
+*/

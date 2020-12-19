@@ -3,7 +3,9 @@ language: node_js
 node_js: "12"
 cache: npm
 
-before_install: cd client
+before_install: 
+  - cd client
+  - npm install -g codecov
 install:
   - npm install -g yarn
   - yarn
@@ -11,7 +13,7 @@ install:
 script:
   - yarn lint
   - yarn build
-  - yarn test
+  - yarn test -- --coverage
   - yarn doc
 
 branches:
